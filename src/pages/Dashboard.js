@@ -17,7 +17,6 @@ export default function Dashboard() {
   };
 
   const handleSearch = () => {
-    // Lakukan sesuatu dengan keyword, seperti mencari data
     console.log("Searching for:", keyword);
   };
 
