@@ -96,7 +96,7 @@ export default function Submit() {
             </div>
           </div>
           <button 
-            className={`w-full py-4 mt-8 rounded-full relative font-bold ${submitEnabled ? 'bg-black text-white cursor-pointer' : 'bg-gray-200 text-white'}`} 
+            className={`w-full py-4 mt-8 rounded-full relative font-bold ${submitEnabled ? 'bg-black hover:bg-yellow-500 text-white cursor-pointer' : 'bg-gray-200 text-white'}`} 
             onClick={handleSubmit} 
             disabled={!submitEnabled}>
             Submit
