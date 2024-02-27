@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Login from './pages/Login'
 import Submit from './pages/Submit';
-import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -10,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} exact></Route>
         <Route path="/submit" element={<Submit />}></Route>
-        <Route path="/sidebar" element={<Sidebar />}></Route>
+        <Route path="/dash" element={<Dashboard />}></Route>
       </Routes>
     </BrowserRouter>
   );

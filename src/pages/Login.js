@@ -7,7 +7,7 @@ export default function Login(){
 
     const handlePhoneNumberChange = (e) => {
         const inputNumber = e.target.value;
-        const sanitizedInput = inputNumber.replace(/\D/g, ""); // agar nilai yg diinputkan hanya bisa berbentuk angka
+        const sanitizedInput = inputNumber.replace(/\D/g, ""); // agar nilai yg diinputkan hanya bisa berbentuk
         
         if (sanitizedInput.startsWith("62")) {
             setPhoneNumber(`+${sanitizedInput}`);
