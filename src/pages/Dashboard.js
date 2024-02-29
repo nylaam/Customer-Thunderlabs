@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
+import React, { useState, useEffect } from "react";
+import Header from "../components/Header"; 
+import userData from "../user.json"; 
 
 export default function Dashboard() {
+  const [saldo, setSaldo] = useState(0);
+  const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    const phoneNumber = localStorage.getItem("phoneNumber");
+
+    // find user berdasarkan nomor telepon terdaftar
+    const user = userData.customers.find((user) => user.phone === phoneNumber);
+    if (user) {
+      setSaldo(user.balance);
+    }
+  }, []);
+
   const formatRupiah = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
     }).format(number);
   };
-
-  const saldo = 1890000;
-  const [keyword, setKeyword] = useState("");
 
   const handleChange = (event) => {
     setKeyword(event.target.value);
@@ -22,13 +33,11 @@ export default function Dashboard() {
 
   return (
     <div className="bg-gray-100 h-screen">
-      <Header />
+      <Header /> 
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="bg-black text-white py-6 px-8 rounded-3xl w-11/12 h-52 flex flex-col justify-center items-center mb-10">
           <p className="font-bold text-3xl mb-4">Sisa Saldo</p>
-          <p className="text-center font-bold text-6xl">
-            {formatRupiah(saldo)}
-          </p>
+          <p className="text-center font-bold text-6xl">{formatRupiah(saldo)}</p>
         </div>
         <div className="flex flex-row w-11/12 mb-4">
           <div className="w-1/2 mr-4 relative">

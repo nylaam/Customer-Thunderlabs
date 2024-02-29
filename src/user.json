@@ -1,0 +1,28 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Nabila Risha Juliana",
+      "phone": "+62818199220",
+      "address": "Danau Ranau V no 12 Sawojajar Kota Malang",
+      "balance": 1000000,
+      "otp": "1907" 
+    },
+    {
+      "id": 2,
+      "name": "Nayla Nur Amalia",
+      "phone": "+6281222318396",
+      "address": "Danau Ranau V no 12 Sawojajar Kota Malang",
+      "balance": 1500000,
+      "otp": "1106"
+    },
+    {
+      "id": 3,
+      "name": "Muhammad Rasyid Ridho",
+      "phone": "+6282143458812",
+      "address": "Danau Ranau V no 12 Sawojajar Kota Malang",
+      "balance": 800000,
+      "otp": "1510"
+    }
+  ]
+}
