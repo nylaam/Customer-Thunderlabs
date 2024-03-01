@@ -22,19 +22,19 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-white shadow-lg py-5 px-6">
+      <header className="bg-white shadow-lg py-5 px-6 fixed w-full top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <img
               src={companyLogo}
               alt="Company Logo"
-              className="h-10 w-auto mr-3 ml-14"
+              className="h-8 md:h-10 mr-3 ml-10"
             />
           </div>
           <div>
             <button
               onClick={handleLogout}
-              className="text-red-600 hover:text-red-700 text-lg font-semibold flex items-center"
+              className="text-red-600 hover:text-red-700 mr-7 text-lg font-semibold flex items-center"
             >
               <FiLogOut className="w-6 h-8" />
             </button>
@@ -47,7 +47,7 @@ export default function Header() {
           id="modal-id"
         >
           <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-          <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+          <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded- shadow-lg bg-white">
             <div className="relative">
               <div className="text-center p-5 flex-auto justify-center">
                 <h2 className="text-xl font-bold py-4">Apakah tetap ingin keluar akun?</h2>
