@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header"; 
-import userData from "../user.json"; 
+import Header from "../components/Header";
+import userData from "../user.json";
+import transactionData from "../datatransaksi.json";
 
 export default function Dashboard() {
   const [saldo, setSaldo] = useState(0);
   const [keyword, setKeyword] = useState("");
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     const phoneNumber = localStorage.getItem("phoneNumber");
@@ -14,6 +16,14 @@ export default function Dashboard() {
     if (user) {
       setSaldo(user.balance);
     }
+
+    // mengambil data transaksi berdasarkan user_id di data user
+    const userTransactions = transactionData.transactions
+      .filter((transaction) => transaction.user_id === user.id)
+      .sort(
+        (a, b) => new Date(b.transaction_date) - new Date(a.transaction_date)
+      ); // sorting transaksi berdasarkan tanggal transaksi terbaaru
+    setTransactions(userTransactions);
   }, []);
 
   const formatRupiah = (number) => {
@@ -32,20 +42,22 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="bg-gray-100 h-screen">
-      <Header /> 
+    <div className="bg-gray-100 pt-20">
+      <Header />
       <div className="flex flex-col items-center justify-center mt-10">
-        <div className="bg-black text-white py-6 px-8 rounded-3xl w-11/12 h-52 flex flex-col justify-center items-center mb-10">
+        <div className="bg-black text-white py-6 px-8 rounded-3xl w-11/12 h-52 flex flex-col justify-center items-center mb-7">
           <p className="font-bold text-3xl mb-4">Sisa Saldo</p>
-          <p className="text-center font-bold text-6xl">{formatRupiah(saldo)}</p>
+          <p className="text-center font-bold text-6xl">
+            {formatRupiah(saldo)}
+          </p>
         </div>
-        <div className="flex flex-row w-11/12 mb-4">
+        <div className="flex flex-row w-11/12 mb-6">
           <div className="w-1/2 mr-4 relative">
             <div className="relative">
               <input
                 type="search"
                 id="default-search"
-                className="block p-4 pl-14 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
+                className="block p-4 pl-14 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
                 placeholder="Ketik pencarianmu"
                 name="keyword"
                 value={keyword}
@@ -74,6 +86,47 @@ export default function Dashboard() {
               </button>
             </div>
           </div>
+        </div>
+        <div className="w-11/12">
+          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center">
+            <p className="text-gray-800 font-bold flex-1 text-center">
+              Nomor Invoice
+            </p>
+            <p className="text-gray-800 font-bold flex-1 text-center">
+              Tanggal Transaksi
+            </p>
+            <p className="text-gray-800 font-bold flex-1 text-center">
+              Total Bayar
+            </p>
+            <p className="text-gray-800 font-bold flex-1 text-center">Jenis</p>
+            <p className="text-gray-800 font-bold flex-1 text-center">Struk</p>
+          </div>
+        </div>
+        <div className="w-11/12">
+          {transactions.map((transaction, index) => (
+            <div
+              key={transaction.id}
+              className={`bg-white shadow-md rounded-lg p-3 mb-2 flex justify-between items-center ${
+                index === transactions.length - 1 ? "mb-8" : ""
+              }`}
+            >
+              <p className="text-gray-800 flex-1 text-center">
+                {transaction.invoice}
+              </p>
+              <p className="text-gray-800 flex-1 text-center">
+                {transaction.transaction_date}
+              </p>
+              <p className="text-gray-800 flex-1 text-center">
+                {formatRupiah(transaction.total_amount)}
+              </p>
+              <p className="text-gray-800 flex-1 text-center mr-24">
+                {transaction.transaction_type}
+              </p>
+              <button className="bg-black hover:bg-yellow-500 text-white rounded-lg text-sm px-5 py-2 mr-24">
+                Detail
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

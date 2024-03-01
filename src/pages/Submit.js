@@ -14,9 +14,9 @@ export default function Submit() {
   useEffect(() => {
     refs.current[0]?.focus();
   }, []);
-  
+
   useEffect(() => {
-    const filledInputs = otpInputs.every(input => input !== "");
+    const filledInputs = otpInputs.every((input) => input !== "");
     setSubmitEnabled(filledInputs);
   }, [otpInputs]);
 
@@ -29,8 +29,10 @@ export default function Submit() {
       const newInputs = [...otpInputs];
       newInputs[index] = value;
       setOtpInputs(newInputs);
-  
-      const previousInputsFilled = newInputs.slice(0, index).every(input => input !== "");
+
+      const previousInputsFilled = newInputs
+        .slice(0, index)
+        .every((input) => input !== "");
       if (value !== "" && index < 3 && previousInputsFilled) {
         refs.current[index + 1].focus();
       }
@@ -38,25 +40,26 @@ export default function Submit() {
       const newInputs = [...otpInputs];
       newInputs[index] = "";
       setOtpInputs(newInputs);
-  
+
       if (index > 0) {
         refs.current[index - 1].focus();
       }
     }
-  };  
+  };
 
   const handleSubmit = () => {
     if (submitEnabled) {
-        const enteredOTP = otpInputs.join("");
-        const phoneNumber = localStorage.getItem("phoneNumber");
-        const user = registeredUsers.find(user => user.phone === phoneNumber); // find user berdasarkan nomor telepon yang diinput & disimpan
-        if (user && enteredOTP === user.otp) { // mengetahui apakah user ditemukan dan OTP nya sesuai
-            navigate('/dash');
-        } else {
-            console.log("Kode OTP tidak valid");
-        }
+      const enteredOTP = otpInputs.join("");
+      const phoneNumber = localStorage.getItem("phoneNumber");
+      const user = registeredUsers.find((user) => user.phone === phoneNumber); // find user berdasarkan nomor telepon yang diinput & disimpan
+      if (user && enteredOTP === user.otp) {
+        // mengetahui apakah user ditemukan dan OTP nya sesuai
+        navigate("/dash");
+      } else {
+        console.log("Kode OTP tidak valid");
+      }
     }
-};
+  };
 
   return (
     <div className="relative w-full h-screen bg-yellow-400/85">
@@ -90,10 +93,15 @@ export default function Submit() {
               ))}
             </div>
           </div>
-          <button 
-            className={`w-full py-4 mt-8 rounded-2xl relative font-bold  ${submitEnabled ? 'bg-black hover:bg-yellow-500 text-white cursor-pointer' : 'bg-gray-200 text-gray-400'}`} 
-            onClick={handleSubmit} 
-            disabled={!submitEnabled}>
+          <button
+            className={`w-full py-4 mt-8 rounded-2xl relative font-bold  ${
+              submitEnabled
+                ? "bg-black hover:bg-yellow-500 text-white cursor-pointer"
+                : "bg-gray-200 text-gray-400"
+            }`}
+            onClick={handleSubmit}
+            disabled={!submitEnabled}
+          >
             Submit
           </button>
         </form>
