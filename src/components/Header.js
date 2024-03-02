@@ -47,10 +47,10 @@ export default function Header() {
           id="modal-id"
         >
           <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-          <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded- shadow-lg bg-white">
+          <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
             <div className="relative">
               <div className="text-center p-5 flex-auto justify-center">
-                <h2 className="text-xl font-bold py-4">Apakah tetap ingin keluar akun?</h2>
+                <h2 className="text-xl font-bold py-4">Apakah tetap ingin keluar?</h2>
                 <p className="text-sm text-gray-500 px-8">
                   Jika keluar akun maka akan dibutuhkan proses login akun kembali
                 </p>

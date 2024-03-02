@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import userData from "../user.json";
 import transactionData from "../datatransaksi.json";
-import TransactionDetailPopup from "./DetailTransaction"; // Import komponen pop up detail
+import DetailTransaction from "./DetailTransaction"; 
 
 export default function Dashboard() {
   const [saldo, setSaldo] = useState(0);
@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionsPerPage] = useState(7);
-  const [selectedTransaction, setSelectedTransaction] = useState(null); //  state untuk transaksi yang dipilih
+  const [selectedTransaction, setSelectedTransaction] = useState(null); // menampilkan pop up untuk transaksi yang dipilih
 
   useEffect(() => {
     const phoneNumber = localStorage.getItem("phoneNumber");
@@ -86,17 +86,18 @@ export default function Dashboard() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleTransactionDetailClick = (transaction) => {
+  const handleDetailTransactionClick = (transaction) => {
     setSelectedTransaction(transaction);
   };
 
-  const handleCloseTransactionDetailPopup = () => {
+  const handleCloseDetailTransaction = () => {
     setSelectedTransaction(null);
   };
 
   return (
-    <div className="bg-gray-100 pt-20">
+    <div className="flex h-full bg-gray-100 pt-20">
       <Header />
+      <div className="p-4 md:p-8 w-full overflow-x-auto max-w-full">
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="bg-black text-white py-6 px-8 rounded-3xl w-11/12 h-52 flex flex-col justify-center items-center mb-7">
           <p className="font-bold text-3xl mb-4">Sisa Saldo</p>
@@ -104,7 +105,7 @@ export default function Dashboard() {
             {formatRupiah(saldo)}
           </p>
         </div>
-        <div className="flex flex-row w-11/12 mb-6">
+        <div className="flex flex-row w-screen mb-6">
           <div className="w-1/2 mr-4 relative">
             <div className="relative">
               <input
@@ -133,7 +134,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="w-11/12">
+        <div className=" md:p-4 w-full overflow-x-auto max-w-full ">
           <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center">
             <p className="text-gray-800 font-bold flex-1 text-center">
               Nomor Invoice
@@ -148,7 +149,7 @@ export default function Dashboard() {
             <p className="text-gray-800 font-bold flex-1 text-center">Struk</p>
           </div>
         </div>
-        <div className="w-11/12">
+        <div className=" md:p-4 w-full overflow-x-auto max-w-full ">
           {currentTransactions.map((transaction, index) => (
             <div
               key={transaction.id}
@@ -156,21 +157,21 @@ export default function Dashboard() {
                 index === transactions.length - 1 ? "mb-8" : ""
               }`}
             >
-              <p className="text-gray-800 flex-1 text-center">
+              <p className="text-gray-800 flex-1 text-center px-2">
                 {transaction.invoice}
               </p>
-              <p className="text-gray-800 flex-1 text-center">
+              <p className="text-gray-800 flex-1 text-center ">
                 {transaction.transaction_date}
               </p>
-              <p className="text-gray-800 flex-1 text-center">
+              <p className="text-gray-800 flex-1 text-center px-8">
                 {formatRupiah(transaction.total_amount)}
               </p>
-              <p className="text-gray-800 flex-1 text-center mr-24">
+              <p className="text-gray-800 flex-1 text-center px-2">
                 {transaction.transaction_type}
               </p>
               <button
-                onClick={() => handleTransactionDetailClick(transaction)}
-                className="bg-black hover:bg-yellow-500 text-white rounded-lg text-sm px-5 py-2 mr-24"
+                onClick={() => handleDetailTransactionClick(transaction)}
+                className="bg-black hover:bg-yellow-500 text-white rounded-lg text-sm px-2 py-2"
               >
                 Detail
               </button>
@@ -193,10 +194,11 @@ export default function Dashboard() {
           )}
         </div>
       </div>
+      </div>
       {selectedTransaction && (
-        <TransactionDetailPopup
+        <DetailTransaction
           transaction={selectedTransaction}
-          onClose={handleCloseTransactionDetailPopup}
+          onClose={handleCloseDetailTransaction}
         />
       )}
     </div>
