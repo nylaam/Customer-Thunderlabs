@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import userData from "../user.json";
 import transactionData from "../datatransaksi.json";
-import TransactionDetailPopup from "./DetailTransaction"; // Import komponen pop up detail
+import DetailTransaction from "./DetailTransaction";
 
 export default function Dashboard() {
   const [saldo, setSaldo] = useState(0);
@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionsPerPage] = useState(7);
-  const [selectedTransaction, setSelectedTransaction] = useState(null); //  state untuk transaksi yang dipilih
+  const [selectedTransaction, setSelectedTransaction] = useState(null); // menampilkan pop up untuk transaksi yang dipilih
 
   useEffect(() => {
     const phoneNumber = localStorage.getItem("phoneNumber");
@@ -34,6 +34,8 @@ export default function Dashboard() {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(number);
   };
 
@@ -86,100 +88,108 @@ export default function Dashboard() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleTransactionDetailClick = (transaction) => {
+  const handleDetailTransactionClick = (transaction) => {
     setSelectedTransaction(transaction);
   };
 
-  const handleCloseTransactionDetailPopup = () => {
+  const handleCloseDetailTransaction = () => {
     setSelectedTransaction(null);
   };
 
   return (
-    <div className="bg-gray-100 pt-20">
+    <div className="flex h-full bg-gray-100 pt-10">
       <Header />
-      <div className="flex flex-col items-center justify-center mt-10">
-        <div className="bg-black text-white py-6 px-8 rounded-3xl w-11/12 h-52 flex flex-col justify-center items-center mb-7">
-          <p className="font-bold text-3xl mb-4">Sisa Saldo</p>
-          <p className="text-center font-bold text-6xl">
-            {formatRupiah(saldo)}
-          </p>
-        </div>
-        <div className="flex flex-row w-11/12 mb-6">
-          <div className="w-1/2 mr-4 relative">
-            <div className="relative">
-              <input
-                type="search"
-                id="default-search"
-                className="block p-4 pl-14 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
-                placeholder="Ketik pencarianmu"
-                name="keyword"
-                value={keyword}
-                onChange={handleChange}
-              />
-              <svg
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      <div className="p-4 md:p-8 w-full overflow-x-auto max-w-full">
+        <div className="flex flex-col items-center justify-center mt-10">
+          <div className="bg-black text-white py-6 px-8 rounded-2xl w-11/12 mx-auto flex flex-col justify-center items-center mb-4">
+            <p className="font-bold text-2xl md:text-3xl mb-3">Sisa Saldo</p>
+            <p className="text-center font-bold text-3xl md:text-6xl">
+              {formatRupiah(saldo)}
+            </p>
+          </div>
+          <div className="flex flex-row w-11/12 mb-3">
+            <div className="w-3/4 md:w-1/2 relative">
+              <div className="relative">
+                <input
+                  type="search"
+                  id="default-search"
+                  className="block p-3 md:p-4 pl-10 md:pl-10 w-full text-xs md:text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
+                  placeholder="Ketik pencarianmu"
+                  name="keyword"
+                  value={keyword}
+                  onChange={handleChange}
                 />
-              </svg>
+                <svg
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="w-11/12">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center">
-            <p className="text-gray-800 font-bold flex-1 text-center">
-              Nomor Invoice
-            </p>
-            <p className="text-gray-800 font-bold flex-1 text-center">
-              Tanggal Transaksi
-            </p>
-            <p className="text-gray-800 font-bold flex-1 text-center">
-              Total Bayar
-            </p>
-            <p className="text-gray-800 font-bold flex-1 text-center">Jenis</p>
-            <p className="text-gray-800 font-bold flex-1 text-center">Struk</p>
+          <div className="w-11/12 overflow-x-auto max-w-full">
+            <div className="bg-white shadow-md rounded-lg p-2 md:p-4 mb-2 flex items-center">
+              <p className="text-gray-800 font-semibold md:font-bold md:w-auto text-xs md:text-base flex-1 text-center mb-2 md:mb-0">
+                Nomor Invoice
+              </p>
+              <p className="text-gray-800 font-semibold md:font-bold md:w-auto text-xs md:text-base flex-1 text-center mb-2 md:mb-0">
+                Tanggal Transaksi
+              </p>
+              <p className="text-gray-800 font-semibold md:font-bold md:w-auto text-xs md:text-base flex-1 text-center mb-2 md:mb-0">
+                Total Bayar
+              </p>
+              <p className="text-gray-800 font-semibold md:font-bold md:w-auto text-xs md:text-base flex-1 text-center mb-2 md:mb-0">
+                Jenis
+              </p>
+              <p className="text-gray-800 font-semibold md:font-bold md:w-auto text-xs md:text-base flex-1 text-center mb-2 md:mb-0">
+                Struk
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="w-11/12">
+          <div className="w-11/12 overflow-x-auto ">
           {currentTransactions.map((transaction, index) => (
             <div
               key={transaction.id}
-              className={`bg-white shadow-md rounded-lg p-3 mb-2 flex justify-between items-center ${
-                index === transactions.length - 1 ? "mb-8" : ""
+              className={`bg-white shadow-md rounded-lg p-3 mb-2 flex flex-col md:flex-row items-start md:items-center ${
+                index === transactions.length - 1 ? "mb-3" : ""
               }`}
             >
-              <p className="text-gray-800 flex-1 text-center">
+              <div className="flex flex-col md:flex-row md:items-center w-full">
+              <p className="text-gray-800 flex-1 font-normal text-center text-sm md:text-base">
                 {transaction.invoice}
               </p>
-              <p className="text-gray-800 flex-1 text-center">
+              <p className="text-gray-800 flex-1 font-normal text-center text-sm md:text-base">
                 {transaction.transaction_date}
               </p>
-              <p className="text-gray-800 flex-1 text-center">
+              <p className="text-gray-800 flex-1 font-normal text-center text-sm md:text-base">
                 {formatRupiah(transaction.total_amount)}
               </p>
-              <p className="text-gray-800 flex-1 text-center mr-24">
+              <p className="text-gray-800 flex-1 font-normal text-center text-sm md:text-base mb-2 mr-0 md:mr-24">
                 {transaction.transaction_type}
               </p>
               <button
-                onClick={() => handleTransactionDetailClick(transaction)}
-                className="bg-black hover:bg-yellow-500 text-white rounded-lg text-sm px-5 py-2 mr-24"
+                onClick={() => handleDetailTransactionClick(transaction)}
+                className="bg-black hover:bg-yellow-500 text-white rounded-lg text-xs md:text-sm px-4 py-2 mr-0 md:mr-24"
               >
                 Detail
               </button>
             </div>
-          ))}
-        </div>
-        <div className="flex mt-4 mb-7">
-          {[...Array(Math.ceil(transactions.length / transactionsPerPage))].map(
-            (_, index) => (
+             </div>
+            ))}
+          </div>
+          <div className="flex mt-4 mb-7">
+            {[
+              ...Array(Math.ceil(transactions.length / transactionsPerPage)),
+            ].map((_, index) => (
               <button
                 key={index}
                 className={`bg-grey-400 hover:bg-gray-300 px-3 py-1 rounded mx-1 ${
@@ -189,14 +199,15 @@ export default function Dashboard() {
               >
                 {index + 1}
               </button>
-            )
-          )}
+             
+            ))}
+          </div>
         </div>
       </div>
       {selectedTransaction && (
-        <TransactionDetailPopup
+        <DetailTransaction
           transaction={selectedTransaction}
-          onClose={handleCloseTransactionDetailPopup}
+          onClose={handleCloseDetailTransaction}
         />
       )}
     </div>

@@ -74,7 +74,7 @@ export default function Submit() {
           alt="Company Logo"
           className="h-8 md:h-12 mt-8 mb-4"
         />
-        <form className="md:max-w-[750px] max-w-[364px] w-full mx-auto bg-yellow-400 p-8 border border-gray-300 rounded-xl mt-10">
+        <form className="md:max-w-[750px] max-w-[348px] w-full mx-auto bg-yellow-400 p-8 border border-gray-300 rounded-xl mt-10">
           <div className="flex flex-col items-center mb-6">
             <p className="text-gray-950 font-semibold text-xl mb-6">
               Masukkan Kode OTP

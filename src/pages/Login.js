@@ -60,7 +60,7 @@ export default function Login() {
         />
         <form
           onSubmit={handleSubmit}
-          className="md:max-w-[750px] max-w-[364px] w-full mx-auto bg-yellow-400 p-8 border border-gray-300 rounded-xl mt-10"
+          className="md:max-w-[750px] max-w-[348px] w-full mx-auto bg-yellow-400 p-8 border border-gray-300 rounded-xl mt-10"
         >
           <div className="flex flex-col mb-6 relative">
             <label
