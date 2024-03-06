@@ -29,7 +29,6 @@ export default function Dashboard() {
       ); // sorting transaksi berdasarkan tanggal transaksi terbaru
     setTransactions(userTransactions);
 
-    window.history.pushState(null, "", "/dashboard");
     const handlePopstate = () => {
       window.history.pushState(null, "", "/dashboard");
     };
