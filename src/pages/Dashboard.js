@@ -28,6 +28,17 @@ export default function Dashboard() {
         (a, b) => new Date(b.transaction_date) - new Date(a.transaction_date)
       ); // sorting transaksi berdasarkan tanggal transaksi terbaru
     setTransactions(userTransactions);
+
+    window.history.pushState(null, "", "/dashboard");
+    const handlePopstate = () => {
+      window.history.pushState(null, "", "/dashboard");
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
   }, []);
 
   const formatRupiah = (number) => {
