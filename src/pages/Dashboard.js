@@ -30,7 +30,7 @@ export default function Dashboard() {
     setTransactions(userTransactions);
 
     const handlePopstate = () => {
-      window.history.pushState(null, "", "/dashboard");
+      window.history.pushState(null, "", "/dash");
     };
 
     window.addEventListener("popstate", handlePopstate);
