@@ -99,7 +99,7 @@ export default function Dashboard() {
   return (
     <div className="flex h-full bg-gray-100 pt-10">
       <Header />
-      <div className="p-4 md:p-8 w-full overflow-x-auto max-w-full">
+      <div className="p-4 md:p-8 w-full max-w-full">
         <div className="flex flex-col items-center justify-center mt-10">
           <div className="bg-black text-white py-6 px-8 rounded-2xl w-11/12 mx-auto flex flex-col justify-center items-center mb-4">
             <p className="font-bold text-2xl md:text-3xl mb-3">Sisa Saldo</p>
@@ -155,7 +155,7 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <div className="w-11/12 overflow-x-auto ">
+          <div className="w-11/12">
           {currentTransactions.map((transaction, index) => (
             <div
               key={transaction.id}

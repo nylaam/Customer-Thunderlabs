@@ -79,12 +79,12 @@ export default function Submit() {
             <p className="text-gray-950 font-semibold text-xl mb-6">
               Masukkan Kode OTP
             </p>
-            <div className="flex justify-center relative">
+            <div className="flex justify-center relative ml-3">
               {otpInputs.map((value, index) => (
                 <input
                   key={index}
                   ref={(el) => (refs.current[index] = el)}
-                  className="bg-gray-100 text-gray-800 p-4 focus:outline-none focus:border-gray-700 rounded-2xl relative text-2xl md:text-4xl w-16 mr-4 text-center"
+                  className="bg-gray-100 text-gray-800 p-4 focus:outline-none focus:border-gray-700 rounded-2xl relative text-2xl md:text-4xl w-16 mr-3 text-center"
                   type="text"
                   maxLength="1"
                   value={value}
